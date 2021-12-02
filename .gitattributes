@@ -1,0 +1,5 @@
+*.h filter=crtext
+*.c filter=crtext
+*.md filter=crtext
+makefile filter=crtext
+
