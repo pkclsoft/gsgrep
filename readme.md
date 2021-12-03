@@ -6,6 +6,7 @@ Written to compile under ORCA/C, and work in the ORCA/M or APW environments, the
 
 grep [-HhinR] pattern [file ...]
 
+* -a    Treat all files as ASCII text.  Normally grep will simply print ``Binary file ... matches`` if files are marked as not being textual.  Use of this option forces gsgrep to output lines matching the specified pattern.
 * -I	Perform case insensitive matching.  By default, grep is case sensitive.
 * -H	Always print filename headers with output lines.
 * -h	Never print filename headers (i.e. filenames) with output lines.
