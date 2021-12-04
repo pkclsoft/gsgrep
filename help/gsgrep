@@ -10,6 +10,7 @@ grep [-aHhinR] pattern [file ...]
 -h  Never print filename headers (i.e. filenames) with output lines.
 
 -n  Each output line is preceded by its relative line number in the file,
-    starting at line 1.  The line number counter is reset for each file processed.
+    starting at line 1.  The line number counter is reset for each file
+    processed.
 
 -R  Recursively search subdirectories listed.
