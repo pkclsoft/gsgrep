@@ -16,6 +16,38 @@ A grep tool for the Apple IIGS
 
 #include "apple2_filetype.h"
 
+typedef struct {
+	int fileType;
+	int auxType;
+	int considerAux; // set to 0 to ignore AUX, 1 otherwise
+} FileType;
+
+static FileType textFileTypes[] = {
+	{PRODOS_T_TXT, 0x00, 0},
+	{PRODOS_T_GWP, PRODOS_AUX_T_GWP_TEACH, 1},
+	{PRODOS_T_SRC, 0x00, 0}
+};
+
+#define NUMBER_OF_TEXT_FILETYPES 3
+
+static int isSearchableText(int fileType, int auxType) {
+	int result = 0;
+	int idx = 0;
+	
+	while ((result == 0) && (idx < NUMBER_OF_TEXT_FILETYPES)) {
+		if (textFileTypes[idx].considerAux == 1) {
+			result = (fileType == textFileTypes[idx].fileType) &&
+					 (auxType == textFileTypes[idx].auxType);
+		} else {
+			result = (fileType == textFileTypes[idx].fileType);
+		}
+		
+		idx++;
+	}
+	
+	return result;
+}
+
 static void toLower(char *text) {
 	int idx = 0;
 	
@@ -165,8 +197,7 @@ GrepResult grepFile(re_t regex, char *thisFile, int flags) {
 				//
 				if (nextwildparms.fileType != PRODOS_T_DIR) {
 					if ((flags & AllFiles) ||
-						((nextwildparms.fileType == PRODOS_T_TXT) ||
-							(nextwildparms.fileType == PRODOS_T_SRC)))
+						isSearchableText(nextwildparms.fileType, nextwildparms.auxType))
 					{
 						filename.bufString.text[filename.bufString.length] = 0x00;
 						
