@@ -4,10 +4,10 @@ Whilst by no means a complete implementation of the linux grep tool, this tool p
 
 Written to compile under ORCA/C, and work in the ORCA/M or APW environments, the tool provides the following command line and options:
 
-grep [-HhinR] pattern [file ...]
+grep [-aHhinR] pattern [file ...]
 
 * -a    Treat all files as ASCII text.  Normally grep will simply print ``Binary file ... matches`` if files are marked as not being textual.  Use of this option forces gsgrep to output lines matching the specified pattern.
-* -I	Perform case insensitive matching.  By default, grep is case sensitive.
+* -i	Perform case insensitive matching.  By default, grep is case sensitive.
 * -H	Always print filename headers with output lines.
 * -h	Never print filename headers (i.e. filenames) with output lines.
 * -n	Each output line is preceded by its relative line number in the file, starting at line 1.  The line number counter is reset for each file processed.

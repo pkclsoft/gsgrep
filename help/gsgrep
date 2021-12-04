@@ -1,0 +1,15 @@
+grep [-aHhinR] pattern [file ...]
+
+-a  Treat all files as ASCII text.  Use of this option forces gsgrep to
+    output lines matching the specified pattern.
+        
+-i  Perform case insensitive matching.  By default, grep is case sensitive.
+
+-H  Always print filename headers with output lines.
+
+-h  Never print filename headers (i.e. filenames) with output lines.
+
+-n  Each output line is preceded by its relative line number in the file,
+    starting at line 1.  The line number counter is reset for each file processed.
+
+-R  Recursively search subdirectories listed.
