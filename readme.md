@@ -35,8 +35,10 @@ If no file arguments are specified, the standard input is used.
 ## Acknowledgements
 This tool borrows heavily, code from two other Github projects:
 
-* tiny-regex-c at https://github.com/kokke/tiny-regex-c for which I have my own fork with an AppleIIGS branch at: https://github.com/pkclsoft/tiny-regex-c/tree/AppleIIGS
+* tiny-regex-c at [github.com/kokke/tiny-regex-c](https://github.com/kokke/tiny-regex-c) for which I have my own fork with an AppleIIGS branch at: [github.com/pkclsoft/tiny-regex-c/tree/AppleIIGS](https://github.com/pkclsoft/tiny-regex-c/tree/AppleIIGS)
 
-* parg at https://github.com/jibsen/parg, for which I have my own fork with an AppleIIGS branch at: https://github.com/pkclsoft/parg/tree/AppleIIGS
+* parg at [github.com/jibsen/parg](https://github.com/jibsen/parg), for which I have my own fork with an AppleIIGS branch at: [github.com/pkclsoft/parg/tree/AppleIIGS](https://github.com/pkclsoft/parg/tree/AppleIIGS)
 
-In addition, the original starting point of the mainline code of grep.c was sourced from another regex library on github: https://github.com/emulvaney/regex; I took the original code and updated to integrate the above two codebases, and to be suitable for the ORCA/M environment.
+In addition, the original starting point of the mainline code of grep.c was sourced from another regex library on github: [github.com/emulvaney/regex](https://github.com/emulvaney/regex); I took the original code and updated to integrate the above two codebases, and to be suitable for the ORCA/M environment.
+
+* Finally, the apple2_filetype.h code has been borrowed from [github.com/cc65/cc65](https://github.com/cc65/cc65) so that I don't reinvent the wheel.

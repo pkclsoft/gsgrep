@@ -11,7 +11,10 @@ A grep tool for the Apple IIGS
 #include <shell.h>
 #include "re.h"
 #include "parg.h"
-#include "filetypes.h"
+
+#define __APPLE2__
+
+#include "apple2_filetype.h"
 
 static void toLower(char *text) {
 	int idx = 0;
@@ -160,11 +163,10 @@ GrepResult grepFile(re_t regex, char *thisFile, int flags) {
 				// if it is a source or text file (unless -a) has been specified by
 				// the user.
 				//
-				if (nextwildparms.fileType != ftDirectory) {
+				if (nextwildparms.fileType != PRODOS_T_DIR) {
 					if ((flags & AllFiles) ||
-						((nextwildparms.fileType == ftText) ||
-							(nextwildparms.fileType == ftHelp) ||
-							(nextwildparms.fileType == ftSource)))
+						((nextwildparms.fileType == PRODOS_T_TXT) ||
+							(nextwildparms.fileType == PRODOS_T_SRC)))
 					{
 						filename.bufString.text[filename.bufString.length] = 0x00;
 						
