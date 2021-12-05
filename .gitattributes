@@ -2,4 +2,4 @@
 *.c filter=crtext
 *.md filter=crtext
 makefile filter=crtext
-
+help/gsgrep filter=crtext
