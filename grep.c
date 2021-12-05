@@ -14,7 +14,7 @@ A grep tool for the Apple IIGS
 
 #define __APPLE2__
 
-#include "apple2_filetype.h"
+#include "a2.filetype.h"
 
 typedef struct {
 	int fileType;
