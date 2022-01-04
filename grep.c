@@ -12,9 +12,30 @@ A grep tool for the Apple IIGS
 #include "re.h"
 #include "parg.h"
 
-#define __APPLE2__
+#ifdef __ORCAC__
+#define AppleIIGS 1
+
+#include <shell.h>
+
+static const char SPINNER[] = "-\|/-";
+static int spinnerIdx = 0;
+static int userAbort = 0;
+
+#define __APPLE2__ 1
 
 #include "a2.filetype.h"
+
+/* On the Apple IIGS, we need this pragma to ensure that the code/data is split across
+   multiple segments as it exceeds a single bank  */
+#pragma memorymodel 1
+#pragma lint -1
+
+/* there are a bunch of places within the code where the \n character is referenced as a
+   character or a string.  C treats them differently, so on the AppleIIGS using ORCA/C
+   we end up with "\n" outputting 0x0d, and '\n' outputting 0x0a.  So the #define below
+   should be used to ensure that \n is always the same value.  On the GS, this is 0x0d. */
+   
+#define SLASH_N '\015'
 
 typedef struct {
 	int fileType;
@@ -47,6 +68,41 @@ static int isSearchableText(int fileType, int auxType) {
 	
 	return result;
 }
+
+static void update_spinner(void) {
+	StopGSPB stopParm;
+	ConsoleOutGSPB consoleOutParm;
+	char ch = SPINNER[spinnerIdx++];
+	
+	consoleOutParm.pCount = 1;
+	
+	if (spinnerIdx > 3) {
+		spinnerIdx = 0;
+	}
+	
+	consoleOutParm.ch = ch;
+	ConsoleOutGS(&consoleOutParm);
+	consoleOutParm.ch = 010;
+	ConsoleOutGS(&consoleOutParm);
+	
+	stopParm.pCount = 1;
+	stopParm.flag = 0;
+	StopGS(&stopParm);
+	
+	if (stopParm.flag != 0) {
+		userAbort = 1;
+	}
+}
+
+#else
+
+#define SLASH_N '\012'
+
+static int isSearchableText(int fileType, int auxType) {
+	return 1;
+}
+
+#endif
 
 static void toLower(char *text) {
 	int idx = 0;
@@ -123,6 +179,15 @@ static int grep(re_t regex, char *infile, int options) {
 		
 		lineNumber++;
 		
+		#ifdef AppleIIGS
+		update_spinner();
+		
+		if (userAbort) {
+			matched = -1;
+			break;
+		}
+		#endif
+
 		if (rc < 0) {
 			break;
 		}
